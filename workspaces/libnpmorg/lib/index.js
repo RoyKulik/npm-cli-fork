@@ -38,19 +38,6 @@ cmd.rm = (org, user, opts = {}) => {
   }).then(() => null)
 }
 
-class Roster {}
-cmd.ls = (org, opts = {}) => {
-  return cmd.ls.stream(org, opts)
-    .collect()
-    .then(data => data.reduce((acc, [key, val]) => {
-      if (!acc) {
-        acc = {}
-      }
-      acc[key] = val
-      return acc
-    }, null))
-    .then(ret => Object.assign(new Roster(), ret))
-}
 
 cmd.ls.stream = (org, opts = {}) => {
   validate('SO', [org, opts])
